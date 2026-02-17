@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tarot Cards</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!-- Magical canvas background -->
+        <canvas id="magic-canvas"></canvas>
+        
+        <div class="container" id="cards-container">
+            <div class="card" data-card-index="0">
+                <div class="card-inner">
+                    <div class="card-back">
+                        <img src="assets/img/card_back.png" alt="Card Back">
+                    </div>
+                    <div class="card-front">
+                        <img src="" alt="Tarot Card" class="card-image">
+                    </div>
+                </div>
+                <div class="card-info">
+                    <h2 class="card-name"></h2>
+                    <p class="card-meaning"></p>
+                </div>
+            </div>
+            <div class="card" data-card-index="1">
+                <div class="card-inner">
+                    <div class="card-back">
+                        <img src="assets/img/card_back.png" alt="Card Back">
+                    </div>
+                    <div class="card-front">
+                        <img src="" alt="Tarot Card" class="card-image">
+                    </div>
+                </div>
+                <div class="card-info">
+                    <h2 class="card-name"></h2>
+                    <p class="card-meaning"></p>
+                </div>
+            </div>
+            <div class="card" data-card-index="2">
+                <div class="card-inner">
+                    <div class="card-back">
+                        <img src="assets/img/card_back.png" alt="Card Back">
+                    </div>
+                    <div class="card-front">
+                        <img src="" alt="Tarot Card" class="card-image">
+                    </div>
+                </div>
+                <div class="card-info">
+                    <h2 class="card-name"></h2>
+                    <p class="card-meaning"></p>
+                </div>
+            </div>
+            <div class="card" data-card-index="3">
+                <div class="card-inner">
+                    <div class="card-back">
+                        <img src="assets/img/card_back.png" alt="Card Back">
+                    </div>
+                    <div class="card-front">
+                        <img src="" alt="Tarot Card" class="card-image">
+                    </div>
+                </div>
+                <div class="card-info">
+                    <h2 class="card-name"></h2>
+                    <p class="card-meaning"></p>
+                </div>
+            </div>
+            <div class="card" data-card-index="4">
+                <div class="card-inner">
+                    <div class="card-back">
+                        <img src="assets/img/card_back.png" alt="Card Back">
+                    </div>
+                    <div class="card-front">
+                        <img src="" alt="Tarot Card" class="card-image">
+                    </div>
+                </div>
+                <div class="card-info">
+                    <h2 class="card-name"></h2>
+                    <p class="card-meaning"></p>
+                </div>
+            </div>
+            <div class="card" data-card-index="5">
+                <div class="card-inner">
+                    <div class="card-back">
+                        <img src="assets/img/card_back.png" alt="Card Back">
+                    </div>
+                    <div class="card-front">
+                        <img src="" alt="Tarot Card" class="card-image">
+                    </div>
+                </div>
+                <div class="card-info">
+                    <h2 class="card-name"></h2>
+                    <p class="card-meaning"></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Shuffle button -->
+        <div id="shuffle-button">
+            <img src="assets/img/card_back.png" alt="Shuffle Cards">
+        </div>
+
+        <!-- Mystical prompt -->
+        <div id="mystical-prompt">
+            <p id="mystical-line"></p>
+            <p id="mystical-subtitle">Click to open. Reshuffle with the card in the corner.</p>
+            <div id="secret-buttons">
+                <button id="btn-yes">Yes</button>
+            </div>
+        </div>
+
+        <!-- Envelope scene -->
+        <div id="envelope-scene">
+            <div id="envelope">
+                <svg id="envelope-svg" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Body -->
+                    <rect x="0" y="30" width="320" height="190" rx="6" fill="#c8b8f0"/>
+                    <!-- Bottom-left triangle -->
+                    <polygon points="0,30 160,145 0,220" fill="#b5a4e8"/>
+                    <!-- Bottom-right triangle -->
+                    <polygon points="320,30 160,145 320,220" fill="#b5a4e8"/>
+                    <!-- Bottom triangle -->
+                    <polygon points="0,220 160,145 320,220" fill="#bfafe8"/>
+                    <!-- Flap (animates open) -->
+                    <polygon id="envelope-flap-svg" points="0,30 160,145 320,30" fill="#d4c5f5"/>
+                    <!-- Seal -->
+                    <text id="envelope-seal-svg" x="160" y="158" text-anchor="middle" font-size="20" fill="#7c5cbf">✦</text>
+                </svg>
+                <p id="envelope-hint">click to open</p>
+            </div>
+
+            <!-- Letter lives OUTSIDE envelope so it survives envelope fade -->
+            <div id="letter">
+                <div id="letter-content">
+                    <p class="letter-salutation">🐰,</p>
+                    <p>It's not often that I meet someone who I carry such a spark with.</p>
+                    <p>In a pile of puzzle pieces, we are the two that complete the jigsaw of our mosaics of emotions.</p>
+                    <p>To befriend you is to behold a treasure I have never held</p>
+                    <p>To be with you is to feel the warmth of a fire that has never been lit before</p>
+                    <p>To know you is to speak in code only the two of us will ever understand</p>
+                    <p>To see you is to see in colors that will only paint our skies</p>
+                    <p>Despite the times we almost lost each other,</p>
+                    <p>Risked becoming strangers who merely share memories,</p>
+                    <p>My orbit will evermore be around your star.</p>
+                    <p>In your highs, I will be the one screaming your name from the audience</p>
+                    <p>In your lows, put your cold hand in mine, and I'll keep you close until you burn bright again.</p>
+                    <p>You've shown me a love that is not just the idea of something,</p>
+                    <p>But a love that is really something.</p>
+                    <p>You've shown me the magic of platonic love,</p>
+                    <p>And I find myself not wanting any more.</p>
+                    <p>Thank you for being the most beautiful soul I have ever known,</p>
+                    <p>My beacon of light in my world surrounded by darkness,</p>
+                    <p>The shoulder I can lay my head upon,</p>
+                    <p>The one who's cheezy jokes keep me smiling,</p>
+                    <p>Who's soul I will always cherish,</p>
+                    <p>My best friend,</p>
+                    <p>My platonic soulmate,</p>
+                    <p>My partner-in-crime,</p>
+                    <p>You will always be in my heart.</p>
+                    <br>
+                    <p>This playlist I made is the compilation of 13 songs that remind me of us.</p>
+                    <p>When I hear these lyrics, I think of us, how we met, and how we are now.</p>
+                    <p>These songs will forevermore be the soundtrack of our friendship.</p>
+                    <p>I hope you'll give it a listen.</p>
+                    <p>Forever the person who'll bother you at 3AM when she's bored,</p>
+                    <p class="letter-signature">✦ Sage ✦</p>
+                    <div class="letter-spotify">
+                        <p class="spotify-label">A playlist to encapsulate our friendship.</p>
+                        <iframe
+                            src="https://open.spotify.com/embed/playlist/43dvaYxLYogcAfK5nteQEs"
+                            width="100%" height="380"
+                            frameborder="0"
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- No button lives on body so it's never clipped by pointer-events:none -->
+        <button id="btn-no">No</button>
+
+        <script src="script.js"></script>
+    </body>
+</html>
