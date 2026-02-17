@@ -36,11 +36,14 @@ body {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding: 0px;
+    padding: 20px 12px 120px;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
+/* ── CARDS ──────────────────────────────────────────────────── */
 .card {
     perspective: 1000px;
     width: 200px;
@@ -49,10 +52,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* load-in state */
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.5s ease, transform 0.5s ease;
+    flex-shrink: 0;
 }
 
 .card.popped-in {
@@ -60,7 +63,6 @@ body {
     transform: translateY(0);
 }
 
-/* Hover lifts the card wrapper — completely separate from card-inner flip */
 .card.popped-in:hover {
     transform: translateY(-20px);
     transition: opacity 0.5s ease, transform 0.3s ease;
@@ -74,7 +76,6 @@ body {
     transition: transform 0.8s ease;
 }
 
-/* Flip only touches card-inner — no translateY conflict */
 .card.flipped .card-inner {
     transform: rotateY(180deg);
 }
@@ -89,9 +90,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.card-back {
-    background: transparent;
-}
+.card-back { background: transparent; }
 
 .card-front {
     background: #1a1a2e;
@@ -145,7 +144,7 @@ body {
     color: #d0d0d0;
 }
 
-/* Shuffle button */
+/* ── SHUFFLE BUTTON ─────────────────────────────────────────── */
 #shuffle-button {
     position: fixed;
     bottom: -80px;
@@ -180,24 +179,23 @@ body {
     pointer-events: none;
 }
 
-/* Mystical prompt */
+/* ── MYSTICAL PROMPT ────────────────────────────────────────── */
 #mystical-prompt {
     position: fixed;
     bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    z-index: 10;
+    z-index: 50;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.6s ease;
     width: max-content;
     min-width: 300px;
+    max-width: 90vw;
 }
 
-#mystical-prompt.popped-in {
-    opacity: 1;
-}
+#mystical-prompt.popped-in { opacity: 1; }
 
 #mystical-line {
     font-family: Georgia, serif;
@@ -254,33 +252,13 @@ body {
     color: #fff;
 }
 
-#secret-buttons button:hover {
-    background: rgba(168, 164, 255, 0.15);
-    border-color: rgba(168, 164, 255, 0.9);
-    color: #fff;
-}
-
+/* ── SHUFFLE ANIMATION ──────────────────────────────────────── */
 @keyframes shuffle {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    25% {
-        transform: translateY(-30px) rotate(-5deg);
-        opacity: 0.7;
-    }
-    50% {
-        transform: translateY(-20px) rotate(5deg);
-        opacity: 0.5;
-    }
-    75% {
-        transform: translateY(-10px) rotate(-3deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
+    0%   { transform: translateY(0)    rotate(0deg);  opacity: 1;   }
+    25%  { transform: translateY(-30px) rotate(-5deg); opacity: 0.7; }
+    50%  { transform: translateY(-20px) rotate(5deg);  opacity: 0.5; }
+    75%  { transform: translateY(-10px) rotate(-3deg); opacity: 0.7; }
+    100% { transform: translateY(0)    rotate(0deg);  opacity: 1;   }
 }
 
 /* ── ENVELOPE SCENE ─────────────────────────────────────────── */
@@ -297,31 +275,22 @@ body {
 
 #envelope {
     position: relative;
-    width: 320px;
+    width: min(320px, 80vw);
     cursor: pointer;
     filter: drop-shadow(0 12px 40px rgba(0,0,0,0.5));
     flex-shrink: 0;
     transition: opacity 0.6s ease;
 }
 
-#envelope-svg {
-    width: 100%;
-    display: block;
-}
+#envelope-svg { width: 100%; display: block; }
 
 #envelope-flap-svg {
     transform-origin: 160px 30px;
     transition: transform 0.55s ease;
 }
 
-#envelope.opened #envelope-flap-svg {
-    transform: rotateX(180deg);
-}
-
-#envelope.opened #envelope-seal-svg {
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
+#envelope.opened #envelope-flap-svg { transform: rotateX(180deg); }
+#envelope.opened #envelope-seal-svg { opacity: 0; transition: opacity 0.2s ease; }
 
 #envelope-hint {
     text-align: center;
@@ -340,16 +309,17 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: min(560px, 90vw);
-    max-height: 80vh;
+    width: min(560px, 92vw);
+    max-height: 82vh;
     background: #fdf8f0;
     border-radius: 6px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.45);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     z-index: 250;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.7s ease, max-height 0.7s ease;
+    transition: opacity 0.7s ease;
 }
 
 #letter.visible {
@@ -358,7 +328,7 @@ body {
 }
 
 #letter-content {
-    padding: 44px 48px 52px;
+    padding: 36px 32px 44px;
     font-family: Georgia, serif;
     color: #2a1f3d;
     line-height: 1.85;
@@ -409,17 +379,15 @@ body {
 .letter-spotify iframe {
     border-radius: 12px;
     display: block;
+    width: 100%;
 }
 
 @keyframes bob {
-    0%, 100% { transform: translateY(0); opacity: 0.5; }
-    50%       { transform: translateY(5px); opacity: 1; }
+    0%, 100% { transform: translateY(0);   opacity: 0.5; }
+    50%       { transform: translateY(5px); opacity: 1;   }
 }
 
-/* ── NO BUTTON ────────────────────────────────────────────────── */
-/* position:fixed + coordinates set by JS when buttons first appear */
-
-/* btn-no sits on body, hidden until all cards revealed */
+/* ── NO BUTTON ──────────────────────────────────────────────── */
 #btn-no {
     position: fixed;
     z-index: 9999;
@@ -443,4 +411,79 @@ body {
     background: rgba(168, 164, 255, 0.15);
     border-color: rgba(168, 164, 255, 0.9);
     color: #fff;
+}
+
+/* ── MOBILE ─────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    html, body { overflow: hidden; }
+
+    #cards-container {
+        gap: 12px;
+        padding: 16px 8px 140px;
+        align-items: flex-start;
+        align-content: flex-start;
+        overflow-y: auto;
+        height: 100vh;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .card {
+        width: 140px;
+        height: 280px;
+    }
+
+    .card-inner {
+        width: 140px;
+        height: 245px;
+    }
+
+    .card-name  { font-size: 13px; }
+    .card-meaning { font-size: 11px; }
+
+    /* No hover lift on touch — tap flips directly */
+    .card.popped-in:hover {
+        transform: translateY(0);
+    }
+
+    #shuffle-button {
+        width: 120px;
+        height: 170px;
+        bottom: -60px;
+        left: -60px;
+    }
+
+    #shuffle-button.popped-in:hover {
+        bottom: -40px;
+        left: -40px;
+    }
+
+    #mystical-prompt {
+        bottom: 16px;
+        min-width: 0;
+        width: 90vw;
+    }
+
+    #mystical-line   { font-size: 15px; }
+    #mystical-subtitle { font-size: 10px; }
+
+    #envelope { width: min(260px, 85vw); }
+
+    #letter {
+        width: 96vw;
+        max-height: 88vh;
+        top: 50%;
+    }
+
+    #letter-content { padding: 24px 20px 32px; }
+    #letter-content p { font-size: 14px; }
+
+    /* No button stays centered on mobile — no teleport */
+    #btn-no {
+        position: fixed !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: auto !important;
+        bottom: 90px !important;
+        transition: opacity 0.4s ease !important;
+    }
 }

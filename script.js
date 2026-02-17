@@ -396,7 +396,16 @@ document.addEventListener('DOMContentLoaded', () => {
         btnNo.style.top  = y + 'px';
     }
 
-    btnNo.addEventListener('mouseenter', () => {
+    let noThrottle = false;
+
+    function handleNoInteraction(e) {
+        if (noThrottle) return;
+        noThrottle = true;
+        setTimeout(() => { noThrottle = false; }, 350);
+
+        // Prevent touch from also triggering click
+        if (e.type === 'touchstart') e.preventDefault();
+
         const line = document.getElementById('mystical-line');
         line.style.opacity = '0';
 
@@ -404,7 +413,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (noCount < noMessages.length) {
             message = noMessages[noCount];
         } else {
-            // After exhausting main messages, pick randomly from extra lines
             message = extraMessages[Math.floor(Math.random() * extraMessages.length)];
         }
 
@@ -414,19 +422,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 200);
 
         noCount++;
-        placeNoButton();
 
-        // Grow Yes, shrink No (cap growth after noMessages is exhausted)
+        if (!('ontouchstart' in window)) {
+            placeNoButton();
+        }
+
         const scale = Math.min(1 + noCount * 0.3, 3.5);
         btnYes.style.transform  = `scale(${scale})`;
         btnYes.style.transition = 'transform 0.4s ease';
 
-        // Only fully hide No after 3 passes through extra messages
         if (noCount >= noMessages.length + 3) {
             btnNo.style.opacity = '0';
             btnNo.style.pointerEvents = 'none';
         }
-    });
+    }
+
+    btnNo.addEventListener('mouseover',  handleNoInteraction);
+    btnNo.addEventListener('touchstart', handleNoInteraction, { passive: false });
 });
 
 // Magical Canvas Animation
